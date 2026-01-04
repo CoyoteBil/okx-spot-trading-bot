@@ -1,0 +1,19 @@
+{
+  "okx": {
+    "api_key": "YOUR_OKX_API_KEY",
+    "api_secret": "YOUR_OKX_API_SECRET",
+    "passphrase": "YOUR_OKX_API_PASSPHRASE"
+  },
+  "trade": {
+    "instId": "BTC-USDT",
+    "total_usdt": 1000,
+    "use_demo": false,
+    "interval_okx": "30m"
+  },
+  "email": {
+    "enabled": false,
+    "sender_email": "your_gmail@gmail.com",
+    "email_password": "your_app_password",
+    "recipient_email": "you@gmail.com"
+  }
+}
