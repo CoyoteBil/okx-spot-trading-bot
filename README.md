@@ -135,7 +135,7 @@ Email notifications are **disabled by default**.
 ### Clone the Repository
 
 ```
-git clone https://github.com/yourusername/okx-dip-buy-bot.git
+git clone https://github.com/w1j0y/okx-dip-buy-bot.git
 cd okx-dip-buy-bot
 ```
 
