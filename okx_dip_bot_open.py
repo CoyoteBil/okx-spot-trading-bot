@@ -120,6 +120,24 @@ SENDER_EMAIL    = cfg["email"]["sender_email"]
 EMAIL_PASSWORD  = cfg["email"]["email_password"]
 RECIPIENT_EMAIL = cfg["email"]["recipient_email"]
 
+def cancel_all_open_orders_for_inst(instId: str):
+    """
+    Cancel ALL live / partially filled SPOT orders
+    for the given instrument (safety cleanup).
+    """
+    try:
+        res = tradeAPI.get_order_list(instType="SPOT", instId=instId)
+        orders = res.get("data", [])
+
+        for o in orders:
+            if o.get("state") in ("live", "partially_filled"):
+                ord_id = o.get("ordId")
+                tradeAPI.cancel_order(instId=instId, ordId=ord_id)
+                logging.info(f"🛑 Cancelled leftover order {ord_id} for {instId}")
+
+    except Exception as e:
+        logging.error(f"Failed cancelling open orders for {instId}: {e}")
+
 def send_trade_email(subject: str, body: str):
     if not EMAIL_ENABLED:
         return
@@ -591,6 +609,8 @@ def check_sell_filled():
             now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
             append_trade(now, "SELL", px, filled_qty)
+            # Cancel any leftover BUY orders
+            cancel_all_open_orders_for_inst(instId)
 
             # Full cycle cleanup
             clear_pending_order()
@@ -649,13 +669,11 @@ def check_and_reset_cycle():
     sell_order_id, _ = read_pending_sell()
 
     try:
-        open_orders = tradeAPI.get_order_history_7days(instType="SPOT").get("data", [])
-        live_orders = [
-            o for o in open_orders
-            if o.get("state") in ["live", "partially_filled"]
-            and instId in (o.get("instId") or "")
-        ]
-        has_live_order = len(live_orders) > 0
+        open_orders = tradeAPI.get_order_list(instType="SPOT", instId=instId).get("data", [])
+        has_live_order = any(
+            o.get("state") in ("live", "partially_filled")
+            for o in open_orders
+        )
     except Exception as e:
         logging.warning(f"⚠ Could not fetch live orders: {e}")
         has_live_order = False
