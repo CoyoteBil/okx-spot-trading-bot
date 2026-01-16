@@ -103,6 +103,7 @@ LIMIT_PRICE_OFFSET = 0.995
 # Profit sell settings
 PROFIT_TARGET_PCT = 0.0025    # 0.25% over avg cost
 SELL_PRICE_BUFFER = 1.0005    # defined but we use quantized price directly as you fixed
+SELL_INTERVAL_OKX = "5m"
 
 instId       = cfg["trade"]["instId"]
 base_ccy     = cfg["trade"]["base_ccy"]
@@ -509,6 +510,25 @@ def clear_pending_sell():
     if os.path.exists(sell_order_file):
         os.remove(sell_order_file)
 
+def cleanup_stale_pending_sell():
+    order_id, _ = read_pending_sell()
+    if not order_id:
+        return
+
+    try:
+        res = tradeAPI.get_order(instId=instId, ordId=order_id)
+        data = res.get("data", [{}])[0]
+
+        side = data.get("side")
+        state = data.get("state")
+
+        if side != "sell" or state not in ("live", "partially_filled"):
+            logging.warning(f"🧹 Clearing stale SELL order {order_id}")
+            clear_pending_sell()
+
+    except Exception:
+        clear_pending_sell()
+
 # =======================
 # Order actions
 # =======================
@@ -643,6 +663,7 @@ Cycle has been reset. Bot is ready for the next dip-buy cycle.
     return False
 
 def check_and_place_profit_sell():
+    cleanup_stale_pending_sell() 
     sell_order_id, _ = read_pending_sell()
     if sell_order_id:
         return
@@ -652,7 +673,7 @@ def check_and_place_profit_sell():
         return
 
     avg_cost = stats["total_spent"] / stats["total_btc"]
-    df = get_klines_okx(instId, interval_okx, limit=2)
+    df = get_klines_okx(instId, SELL_INTERVAL_OKX, limit=2)
     current_price = df["close"].iloc[-1]
 
     # Minimum profit threshold
@@ -723,6 +744,7 @@ def main():
     while True:
         try:
             # 1) Highest priority: did our PROFIT SELL fill?
+            cleanup_stale_pending_sell()
             if check_sell_filled():
                 send_weekly_report()
                 sleep_until_next_half_hour()
@@ -749,6 +771,31 @@ def main():
                 continue
 
             # 4) Handle pending BUY
+            order_id, order_ts = read_pending_order()
+
+            if order_id and current_stage == 0 and order_ts:
+                order_time = datetime.strptime(order_ts, "%Y-%m-%d %H:%M:%S UTC")
+                age = datetime.now(timezone.utc) - order_time
+
+                if age >= timedelta(days=3):
+                    logging.warning("⏰ First BUY open > 3 days — resetting cycle")
+
+                    tradeAPI.cancel_order(instId=instId, ordId=order_id)
+
+                    clear_pending_order()
+                    clear_pending_sell()
+                    reset_last_buy_price()
+                    reset_cycle_stats()
+                    write_buy_stage(0)
+
+                    send_trade_email(
+                        f"[{instId}] First BUY expired — cycle reset",
+                        "First limit BUY stayed open > 3 days. Cycle reset to avoid being stuck below market."
+                    )
+
+                    sleep_until_next_half_hour()
+                    continue
+
             order_id, _ = read_pending_order()
             if order_id:
                 is_filled, filled_qty, avg_price = check_order_status(order_id)
@@ -833,4 +880,3 @@ Cycle stats:
 
 if __name__ == "__main__":
     main()
-
