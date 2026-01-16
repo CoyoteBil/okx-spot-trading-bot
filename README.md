@@ -95,6 +95,16 @@ This approach favors low risk, high probability, and steady returns.
 This strategy does **not** aim for large profits per trade.  
 It is designed for **low, steady, repeatable gains**.
 
+## Latest Upgrades (Execution Safety Improvements)
+
+- **SELL checks on lower timeframe (5m)** to avoid missing exits during fast moves  
+- **SELL limit orders always placed above market price** to prevent OKX rejections  
+- **Automatic retry if SELL order is rejected or disappears**  
+- **First BUY auto‑cancel after 3 days if unfilled**, followed by full cycle reset  
+- **No cooldown after cycle completion** — bot resumes immediately  
+
+These upgrades improve reliability without increasing risk.
+
 ## Risk Profile
 
 This bot is intentionally designed to be:
